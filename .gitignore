@@ -1,0 +1,5 @@
+# Build inputs stay on this PC (build.js points at the private word-list folder)
+build.js
+template.html
+serve.js
+spelling-hawks.html

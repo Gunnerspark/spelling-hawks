@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Spelling Hawks">
+<meta name="theme-color" content="#EEF4FB">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%A6%85%3C%2Ftext%3E%3C%2Fsvg%3E">
+</head>
+<body style="margin:0">
+<title>Spelling Hawks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;700;800&family=Andika:wght@400;700&display=swap">
+<style>
+/* Class theme: sky blue + hawk rust + gold. Token names kept from the original page (violet = primary, pink = accent). */
+:root{
+  --bg:#EEF4FB; --surface:#FFFFFF; --surface-2:#E3EDF8; --ink:#16263D; --ink-soft:#56677F;
+  --violet:#2563C9; --violet-deep:#1A469A; --pink:#E2683C; --pink-deep:#B84A22;
+  --sun:#F5B82E; --sun-deep:#C98E0A; --sun-ink:#3A2A00;
+  --mint:#2FB57E; --mint-deep:#1E8F60; --coral:#F07A57; --coral-deep:#D2553A; --sky:#5DB8F0;
+  --line:#CCDAEB; --shadow:0 10px 30px rgba(22,52,110,.12); --on-accent:#FFFFFF;
+  --dots:rgba(37,99,201,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ color-scheme:dark;
+    --bg:#0F1A2B; --surface:#19283F; --surface-2:#22355A; --ink:#EEF4FF; --ink-soft:#A9B8CF;
+    --violet:#6E9BF0; --violet-deep:#3F6FD0; --pink:#F08A5E; --pink-deep:#C9653A;
+    --sun:#F7C64F; --sun-deep:#CC9A17; --mint:#3ECF92; --mint-deep:#25A672; --coral:#FF8A6B; --coral-deep:#E2664A;
+    --line:#33496B; --shadow:0 10px 30px rgba(0,0,0,.35); --dots:rgba(110,155,240,.10);
+  }
+}
+:root[data-theme="dark"]{ color-scheme:dark;
+  --bg:#0F1A2B; --surface:#19283F; --surface-2:#22355A; --ink:#EEF4FF; --ink-soft:#A9B8CF;
+  --violet:#6E9BF0; --violet-deep:#3F6FD0; --pink:#F08A5E; --pink-deep:#C9653A;
+  --sun:#F7C64F; --sun-deep:#CC9A17; --mint:#3ECF92; --mint-deep:#25A672; --coral:#FF8A6B; --coral-deep:#E2664A;
+  --line:#33496B; --shadow:0 10px 30px rgba(0,0,0,.35); --dots:rgba(110,155,240,.10);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg) radial-gradient(var(--dots) 1.6px, transparent 1.7px) 0 0/22px 22px;color:var(--ink);
+  font-family:Nunito,"Segoe UI",system-ui,sans-serif;font-size:17px;line-height:1.4;-webkit-tap-highlight-color:transparent}
+#app{max-width:640px;margin:0 auto;padding-block:12px 32px;padding-inline:16px;min-height:100%}
+h1,h2,h3{font-family:Fredoka,Nunito,sans-serif;font-weight:700;line-height:1.15;margin:0;text-wrap:balance}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.eyebrow{font-family:Fredoka,sans-serif;font-weight:600;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+
+/* chunky buttons */
+.btn{font-family:Fredoka,sans-serif;font-weight:600;font-size:1.1rem;border:0;border-radius:18px;padding:12px 20px;min-height:56px;
+  cursor:pointer;color:var(--on-accent);background:var(--violet);box-shadow:0 6px 0 var(--violet-deep);
+  transition:transform .08s,box-shadow .08s;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--violet-deep)}
+.btn.pink{background:var(--pink);box-shadow:0 6px 0 var(--pink-deep)} .btn.pink:active{box-shadow:0 2px 0 var(--pink-deep)}
+.btn.mint{background:var(--mint);box-shadow:0 6px 0 var(--mint-deep)} .btn.mint:active{box-shadow:0 2px 0 var(--mint-deep)}
+.btn.sun{background:var(--sun);box-shadow:0 6px 0 var(--sun-deep);color:var(--sun-ink)} .btn.sun:active{box-shadow:0 2px 0 var(--sun-deep)}
+.btn.ghost{background:var(--surface-2);color:var(--ink);box-shadow:0 6px 0 var(--line)} .btn.ghost:active{box-shadow:0 2px 0 var(--line)}
+.btn.big{width:100%;font-size:1.3rem;min-height:66px;border-radius:22px}
+.btn.sm{min-height:44px;padding:8px 14px;font-size:1rem;border-radius:14px;box-shadow:0 4px 0 var(--violet-deep)}
+.btn.sm.ghost{box-shadow:0 4px 0 var(--line)} .btn.sm.pink{box-shadow:0 4px 0 var(--pink-deep)} .btn.sm.mint{box-shadow:0 4px 0 var(--mint-deep)} .btn.sm.sun{box-shadow:0 4px 0 var(--sun-deep)}
+.btn.sm:active{transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.btn[disabled]{opacity:.5;cursor:default;transform:none}
+.btn[hidden]{display:none}
+.iconbtn{width:48px;height:48px;border-radius:50%;border:2px solid var(--line);background:var(--surface);cursor:pointer;display:grid;place-items:center;font-size:1.3rem}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row.center{justify-content:center}
+.stack{display:flex;flex-direction:column;gap:12px}
+
+/* home */
+.top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.top .mascot{width:76px;flex:0 0 auto}
+.top h1{font-size:1.7rem}
+.top .sub{margin:2px 0 0;color:var(--ink-soft);font-weight:700}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:18px}
+.hero{background:linear-gradient(135deg,var(--surface) 0%,var(--surface-2) 100%);border-color:var(--violet)}
+.hero h2{font-size:1.5rem;margin-top:2px}
+.hero .meta{color:var(--ink-soft);font-weight:700;margin:4px 0 10px}
+.bar{height:14px;border-radius:99px;background:var(--surface-2);border:2px solid var(--line);overflow:hidden}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--sun),var(--pink));border-radius:99px;transition:width .5s}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.chip{border:2px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-weight:800;cursor:pointer;min-height:42px}
+.chip[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:var(--on-accent)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:420px){.actions{grid-template-columns:1fr}}
+details.words{margin-top:12px} details.words summary{cursor:pointer;font-weight:800;color:var(--violet)}
+.wordgrid{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.wtag{font-family:Andika,sans-serif;background:var(--surface-2);border-radius:10px;padding:4px 10px;font-weight:700}
+.wtag.m{background:var(--sun);color:var(--sun-ink)} .wtag.t{background:var(--coral);color:#fff}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+@media (max-width:420px){.twocol{grid-template-columns:1fr}}
+.deck{display:flex;flex-direction:column;gap:8px}
+.deck .t{font-family:Fredoka,sans-serif;font-weight:700;font-size:1.15rem}
+.deck .m{color:var(--ink-soft);font-weight:700;font-size:.95rem}
+.older{margin-top:18px}
+.older h3{font-size:1.2rem;margin-bottom:8px}
+.wk{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 0;border-top:2px solid var(--line)}
+.wk .t{font-weight:800} .wk .m{color:var(--ink-soft);font-size:.92rem;font-weight:700}
+.wk .bar{margin-top:6px;height:10px}
+.foot{margin-top:22px;text-align:center}
+.linkbtn{background:none;border:0;color:var(--ink-soft);font-weight:800;text-decoration:underline;cursor:pointer;padding:10px;min-height:44px}
+
+/* session */
+.sbar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.sbar .pips{flex:1;display:flex;gap:4px;justify-content:center;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:var(--line)}
+.pip.now{background:var(--violet);transform:scale(1.25)} .pip.ok{background:var(--mint)} .pip.no{background:var(--coral)}
+.sbar .stars{font-weight:800;white-space:nowrap}
+.stage{perspective:1400px}
+.flip{display:grid;transition:transform .55s cubic-bezier(.4,.1,.2,1);transform-style:preserve-3d}
+.flip.flipped{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face.back{transform:rotateY(180deg)}
+.face.card{padding:20px 18px 22px}
+@media (prefers-reduced-motion:reduce){.flip{transition:none}}
+.word{font-family:Andika,sans-serif;font-weight:700;font-size:clamp(2.4rem,11vw,4rem);text-align:center;letter-spacing:.03em;margin:8px 0 14px;overflow-wrap:anywhere}
+.sentence{font-family:Andika,sans-serif;font-size:clamp(1.25rem,5vw,1.6rem);font-weight:400;text-align:center;line-height:1.5;margin:10px 0 14px}
+.sentence .blank{display:inline-block;min-width:4.5em;border-bottom:4px solid var(--violet);padding:0 6px;color:var(--violet);font-weight:700;text-align:center;vertical-align:baseline}
+.sentence .blank.filled{color:var(--ink)}
+.face .eyebrow{text-align:center}
+.hintbar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:6px 0 12px}
+.inputArea{margin:6px 0 10px}
+.typein{font-family:Andika,sans-serif;font-size:2.1rem;font-weight:700;text-align:center;width:100%;border:3px solid var(--line);border-radius:18px;padding:10px 12px;background:var(--surface-2);color:var(--ink);letter-spacing:.06em}
+.typein:focus{border-color:var(--violet);outline:none}
+.boxes{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.box{width:68px;height:82px;border:3px solid var(--line);border-radius:14px;background:var(--surface-2);position:relative;touch-action:none;overflow:hidden}
+@media (min-width:520px){.box{width:76px;height:90px}}
+.box::before{content:"";position:absolute;left:8px;right:8px;top:48%;border-top:2px dashed var(--line);pointer-events:none}
+.box::after{content:"";position:absolute;left:8px;right:8px;top:78%;border-top:2px solid var(--line);pointer-events:none}
+.box canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.box .guess{position:absolute;right:5px;bottom:1px;font-family:Andika,sans-serif;font-weight:700;font-size:1rem;color:var(--violet);pointer-events:none}
+.box .guess.soft{opacity:.6}
+.box.filled{border-color:var(--violet)}
+.box .erase{position:absolute;left:2px;top:2px;width:26px;height:26px;border-radius:50%;border:0;background:var(--coral);color:#fff;font-weight:900;line-height:1;display:none;cursor:pointer;font-size:.9rem}
+.box.filled .erase{display:block}
+.slots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.slot{width:54px;height:62px;border:3px dashed var(--line);border-radius:12px;display:grid;place-items:center;font-family:Andika,sans-serif;font-weight:700;font-size:1.9rem;background:transparent;cursor:pointer;color:var(--ink)}
+.slot.filled{border-style:solid;border-color:var(--violet);background:var(--surface-2)}
+.slot.over{border-color:var(--mint);background:var(--surface-2)}
+.tray{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px;min-height:70px;padding:8px;border-radius:16px;background:var(--surface-2)}
+.tile{width:56px;height:64px;border:0;border-radius:14px;background:var(--sun);box-shadow:0 5px 0 var(--sun-deep);font-family:Andika,sans-serif;font-weight:700;font-size:1.9rem;color:var(--sun-ink);display:grid;place-items:center;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.tile:active{cursor:grabbing}
+.tile.ghost{position:fixed;z-index:50;pointer-events:none;transform:translate(-50%,-50%) scale(1.1);opacity:.95}
+.tile.dragging{opacity:.3}
+.fb{min-height:2.6rem;text-align:center;font-weight:800;font-size:1.15rem;margin:6px 0 10px}
+.fb .ok{color:var(--mint-deep)} .fb .no{color:var(--coral-deep)}
+.marks{font-family:Andika,sans-serif;font-size:1.7rem;letter-spacing:.08em;margin:4px 0}
+.mark.yes{color:var(--mint-deep)} .mark.no{color:var(--coral-deep);text-decoration:underline wavy}
+.reveal{font-family:Andika,sans-serif;font-size:2rem;font-weight:700;color:var(--violet);letter-spacing:.06em}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.mode{border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:10px 6px;min-height:58px;font-family:Fredoka,sans-serif;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.95rem}
+.mode span{font-size:1.4rem;line-height:1}
+.mode[aria-pressed="true"]{border-color:var(--violet);background:var(--surface-2);color:var(--violet)}
+.shake{animation:shake .5s} @keyframes shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-6px)}40%,60%{transform:translateX(6px)}}
+.pop{animation:pop .45s} @keyframes pop{0%{transform:scale(.9)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
+.mascot.happy{animation:bounce .7s ease 2} @keyframes bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-16px) rotate(-6deg)}70%{transform:translateY(-4px) rotate(4deg)}}
+.mascot.sad{animation:wiggle .6s} @keyframes wiggle{25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+@media (prefers-reduced-motion:reduce){.shake,.pop,.mascot.happy,.mascot.sad{animation:none}}
+.bigmascot{width:110px;margin:0 auto 6px;display:block}
+/* word bank (fill-in-the-sentence cards) */
+.bank{display:flex;flex-wrap:wrap;gap:10px 8px;justify-content:center;margin:4px 0 2px}
+.chip{font-family:Andika,sans-serif;font-weight:700;font-size:clamp(1.25rem,5.2vw,1.55rem);min-height:54px;min-width:72px;padding:4px 14px;border-radius:16px;border:3px solid var(--line);
+  background:var(--surface-2);color:var(--ink);cursor:pointer;box-shadow:0 5px 0 var(--line);transition:transform .08s,box-shadow .08s}
+.chip:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
+.chip.wrong{opacity:.4;text-decoration:line-through;text-decoration-color:var(--coral-deep);box-shadow:none;transform:none;cursor:default}
+.chip.right{background:var(--mint);border-color:var(--mint-deep);color:#fff;box-shadow:0 5px 0 var(--mint-deep)}
+.chip.hint{border-color:var(--sun-deep);background:var(--sun);color:var(--sun-ink);animation:pop .6s 3}
+@media (prefers-reduced-motion:reduce){.chip.hint{animation:none}}
+/* hawk mascot (fills the space under the card) */
+.hawkZone{position:relative;display:flex;justify-content:center;align-items:flex-end;margin-top:10px;pointer-events:none}
+.hawk{height:clamp(190px,40vh,420px);width:auto;overflow:visible}
+@media (max-height:600px){.hawkZone{display:none}}
+.hawk *{transform-box:view-box}
+.hawk .hbody{transform-origin:110px 150px;animation:hhover 2.4s ease-in-out infinite}
+@keyframes hhover{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hawk .hshadow{transform-origin:110px 252px;animation:hshadow 2.4s ease-in-out infinite}
+@keyframes hshadow{0%,100%{transform:scaleX(1);opacity:.2}50%{transform:scaleX(.8);opacity:.12}}
+.hawk .wingL{transform-origin:92px 124px;animation:hwingL .6s ease-in-out infinite alternate}
+.hawk .wingR{transform-origin:128px 124px;animation:hwingR .6s ease-in-out infinite alternate}
+@keyframes hwingL{from{transform:rotate(-8deg)}to{transform:rotate(14deg)}}
+@keyframes hwingR{from{transform:rotate(8deg)}to{transform:rotate(-14deg)}}
+.hawk .hhead{transform-origin:110px 112px}
+.hawk .eyes{transform-origin:110px 82px;animation:hblink 5s infinite}
+@keyframes hblink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.hawk .spark{transform-origin:center;transform-box:fill-box;animation:htwinkle 1.8s ease-in-out infinite}
+@keyframes htwinkle{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1)}}
+.hawk .badgeStar{transform-origin:center;transform-box:fill-box;animation:hglow 1.6s ease-in-out infinite}
+@keyframes hglow{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.15) rotate(18deg)}}
+.hawk .burst{opacity:0;transform-origin:110px 142px}
+.hawk.cheer .hbody{animation:hcheer 1.3s ease-in-out}
+@keyframes hcheer{0%{transform:translateY(0)}30%{transform:translateY(-36px) rotate(-5deg)}55%{transform:translateY(-40px) rotate(5deg)}100%{transform:translateY(0)}}
+.hawk.cheer .wingL{animation:hwingL .15s ease-in-out 8 alternate}
+.hawk.cheer .wingR{animation:hwingR .15s ease-in-out 8 alternate}
+.hawk.cheer .burst{animation:hburst 1.1s ease-out .15s}
+@keyframes hburst{0%{opacity:0;transform:scale(.2)}25%{opacity:1}100%{opacity:0;transform:scale(1.7)}}
+.hawk.oops .hhead{animation:hoops .9s ease-in-out}
+@keyframes hoops{20%{transform:rotate(-10deg)}45%{transform:rotate(8deg)}70%{transform:rotate(-4deg)}100%{transform:rotate(0)}}
+.fsay{position:absolute;top:0;left:50%;transform:translate(-50%,-30%) scale(.6);opacity:0;background:var(--surface);color:var(--violet-deep);border:2px solid var(--line);
+  border-radius:16px;padding:6px 14px;font-family:Fredoka,sans-serif;font-weight:600;font-size:1.05rem;white-space:nowrap;box-shadow:var(--shadow);transition:opacity .25s,transform .25s}
+.fsay.show{opacity:1;transform:translate(-50%,-30%) scale(1)}
+@media (prefers-reduced-motion:reduce){.hawk *,.hawk.cheer *,.hawk.oops *{animation:none!important}.hawk .burst{opacity:0}}
+/* first-visit name card */
+.welcome{text-align:center;margin-top:24px}
+.welcome h2{font-size:1.7rem;margin:4px 0 6px}
+.welcome .typein{margin:12px 0 14px;font-size:1.8rem}
+.done h2{text-align:center;font-size:1.8rem}
+.done .stat{text-align:center;font-weight:800;font-size:1.15rem;color:var(--ink-soft)}
+.done .missed{margin:10px 0}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:40}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:14px;font-weight:800;z-index:60;box-shadow:var(--shadow);max-width:90vw;text-align:center}
+
+/* sheet */
+.sheet{position:fixed;inset:0;background:rgba(20,10,40,.45);z-index:70;display:flex;align-items:flex-end;justify-content:center}
+.sheet .panel{background:var(--surface);width:min(640px,100%);max-height:88vh;overflow:auto;border-radius:24px 24px 0 0;padding:18px 16px 28px;border-top:2px solid var(--line)}
+.sheet h2{font-size:1.4rem;margin-bottom:8px}
+.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.field label{font-weight:800}
+.field input,.field textarea{font:inherit;border:2px solid var(--line);border-radius:12px;padding:10px;background:var(--surface-2);color:var(--ink);width:100%}
+.field textarea{min-height:90px;font-family:Andika,sans-serif}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:2px solid var(--line);font-weight:800}
+.switch button{min-width:74px}
+.note{color:var(--ink-soft);font-size:.95rem;margin:6px 0}
+.sr{position:absolute;left:-9999px}
+</style>
+
+<div id="app" role="application" aria-label="Spelling Hawks"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<script>
+/* ===================== WORD DATA =====================
+   Filled in by build.js from the shared weekly word list. */
+var WORDS_UPDATED = "October 23, 2026";
+var WEEKS = [
+  { id: "2026-10-26", test: "2026-10-30", words: ["mind","shall","alone","order","third","push","point","within","body","field","belongs","cheese","earn","edge","feather","fence","funny","going","honey","letters","orange","pocket","shoe","shoes","stairs","stream","talks","tiny","words"] },
+  { id: "2026-10-19", test: "2026-10-23", words: ["held","church","once","one","own","before","know","no","were","where","there","here","dead","leave","early","close","flower","flour","nothing","ground","lead","led","such","morning","however"] },
+  { id: "2026-10-05", test: "2026-10-09", words: ["March","march","next","indeed","four","herself","power","wish","because","cause","world","country","meet","meat","another","tripped","trip","list","people","ever"] },
+  { id: "2026-09-21", test: "2026-09-25", words: ["catch","catcher","kitchen","butcher","black","warm","unless","clothing","clothes","clothe","began","begin","begun","able","gone","go","done","do","suit","track","watch","dash","fell","fight","buy","by","stopping","stop"] },
+  { id: "2026-09-14", test: "2026-09-18", words: ["stamp","light","coming","come","night","pass","shut","easy","ease","bone","cloud","draw","drink","garden","goose","hopping","hop","knife","mouth","oak","peach","pole","queen","rope","season","sign","space","wagon","wheat","window"] },
+  { id: "2026-09-07", test: "2026-09-11", words: ["try","move","delay","pound","behind","around","burn","camp","bear","bare","clear","clean","spell","poor","finish","hurt","maybe","across","tonight","tenth","sir","these","those","club","seen","see","felt","full","fail","setting","set"] },
+  { id: "2026-08-31", test: "2026-09-04", words: ["week","weak","first","sent","cent","mile","seem","even","without","afternoon","Friday","hour","our","wife","state","July","head","story","open","short","lady","reach","better","water","round","cost","price","become","class","horse","care"] },
+  { id: "2026-08-24", test: "2026-08-28", words: ["became","brother","rain","keep","start","mail","male","female","eye","I","glass","party","upon","two","twin","twice","twelve","twenty","between","they","would","could","should","any","many","city","only","where"] }
+];
+/* Practice sentences: ___ marks where the word goes. Keys are lowercase, except where capitalization changes the word (March vs. march). */
+var SENTENCES = {
+  became:"The caterpillar ___ a butterfly.", brother:"My little ___ likes to play with trucks.", rain:"We wore boots in the ___.",
+  keep:"You can ___ the shells you found.", start:"The race will ___ when I say go!", mail:"The letter came in the ___ today.",
+  male:"A rooster is a ___ chicken.", female:"A hen is a ___ chicken.", eye:"She winked one ___ at me.", i:"___ love to read books.",
+  glass:"Please pour the milk into a ___.", party:"We had cake at the birthday ___.", upon:"Once ___ a time, there was a dragon.",
+  two:"A bike has ___ wheels.", twin:"My ___ sister looks just like me.", twice:"I read the book ___ because I loved it.",
+  twelve:"There are ___ eggs in a dozen.", twenty:"Two dimes make ___ cents.", between:"The cat sat ___ the two pillows.",
+  they:"The kids said ___ wanted more pizza.", would:"I ___ like some juice, please.", could:"She ___ jump higher than anyone.",
+  should:"You ___ wash your hands before dinner.", any:"Do you have ___ crayons I can use?", many:"There are so ___ stars in the sky!",
+  city:"The ___ has tall buildings and busy streets.", only:"There is ___ one cookie left.", where:"Do you know ___ my shoes are?",
+  week:"There are seven days in a ___.", weak:"The baby bird was too ___ to fly.", first:"She came in ___ place in the race.",
+  sent:"Grandma ___ me a card for my birthday.", cent:"A penny is worth one ___.", mile:"We walked one ___ to the park.",
+  seem:"You ___ very happy today!", even:"___ my dog knows that trick!", without:"Don't go outside ___ your coat.",
+  afternoon:"We eat lunch at noon and play in the ___.", friday:"The spelling test is on ___.", hour:"There are sixty minutes in one ___.",
+  our:"This is ___ classroom.", wife:"The king's ___ is the queen.", state:"Texas is a big ___.", july:"The Fourth of ___ has fireworks.",
+  head:"Put your hat on your ___.", story:"Dad read me a bedtime ___.", open:"Please ___ the door for the puppy.",
+  short:"The puppy has ___ little legs.", lady:"A kind ___ helped us find our seats.", reach:"Can you ___ the top shelf?",
+  better:"I feel much ___ after a nap.", water:"Plants need sun and ___ to grow.", round:"A ball is ___.", cost:"How much does the toy ___?",
+  price:"The ___ of the apple was one dollar.", become:"One day I want to ___ a doctor.", "class":"Our ___ has twenty students.",
+  horse:"The ___ galloped across the field.", care:"I take ___ of my pet fish every day.",
+  "try":"If you don't win, ___ again!", move:"Let's ___ the chairs to make room.", delay:"The rain caused a ___ in the game.",
+  pound:"The bag of apples weighs one ___.", behind:"The dog hid ___ the couch.", around:"We walked ___ the lake.",
+  burn:"Be careful, the stove can ___ you.", camp:"We slept in a tent at summer ___.", bear:"The brown ___ ate some berries.",
+  bare:"My feet were ___ in the soft grass.", clear:"The sky was ___ and blue.", clean:"Please ___ your room before dinner.",
+  spell:"Can you ___ your name?", poor:"The ___ puppy was lost in the rain.", finish:"Let's ___ the puzzle together.",
+  hurt:"I fell down and ___ my knee.", maybe:"___ we can go to the zoo tomorrow.", across:"The frog hopped ___ the pond.",
+  tonight:"We are having pizza for dinner ___.", tenth:"October is the ___ month of the year.", sir:"\"Yes, ___,\" said the soldier.",
+  these:"___ cookies are still warm!", those:"Look at ___ birds way up high.", club:"I joined the chess ___ at school.",
+  seen:"Have you ___ my missing sock?", see:"I can ___ the moon from my window.", felt:"The kitten's fur ___ so soft.",
+  full:"My tummy is ___ after that big lunch.", fail:"If you keep trying, you won't ___.", setting:"The sun is ___ behind the hills.",
+  set:"Please ___ the table for dinner.",
+  stamp:"Put a ___ on the letter before you mail it.", light:"Turn on the ___ so we can see.", coming:"Grandpa is ___ to visit on Sunday.",
+  come:"Please ___ inside, it's cold out.", night:"The stars shine at ___.", pass:"Please ___ the salt to me.",
+  shut:"___ the window so the bugs stay out.", easy:"That puzzle was so ___!", ease:"Warm milk can ___ a tummy ache.",
+  bone:"The dog buried his ___ in the yard.", cloud:"A fluffy white ___ floated by.", draw:"I like to ___ pictures of horses.",
+  drink:"Would you like a ___ of water?", garden:"We grow tomatoes in our ___.", goose:"The ___ honked at the ducks.",
+  hopping:"The bunny was ___ through the grass.", hop:"Frogs can ___ very far.", knife:"Dad used a ___ to cut the cake.",
+  mouth:"Open your ___ and say ahh.", oak:"Acorns fall from the ___ tree.", peach:"The ___ was sweet and juicy.",
+  pole:"The flag flew at the top of the ___.", queen:"The ___ wore a golden crown.", rope:"We used a ___ to climb the hill.",
+  season:"Fall is my favorite ___ of the year.", sign:"The stop ___ is red.", space:"Rockets fly up into outer ___.",
+  wagon:"We pulled the pumpkins in a red ___.", wheat:"Bread is made from ___.", window:"I looked out the ___ at the snow.",
+  "catch":"Can you ___ the ball?", catcher:"The ___ wears a mask behind home plate.", kitchen:"Mom is baking cookies in the ___.",
+  butcher:"The ___ sells meat at the market.", black:"The night sky was ___ and full of stars.", warm:"My mittens keep my hands ___.",
+  unless:"We can't swim ___ a grown-up is watching.", clothing:"Pack some warm ___ for the trip.", clothes:"I put my dirty ___ in the basket.",
+  clothe:"Parents feed and ___ their children.", began:"The movie ___ at seven o'clock.", begin:"Let's ___ the game!",
+  begun:"The party had already ___ when we got there.", able:"Now I am ___ to ride a bike!", gone:"The cookies are all ___.",
+  go:"Ready, set, ___!", done:"I am ___ with my homework.", "do":"Let's ___ a puzzle together.", suit:"Dad wore a ___ to the wedding.",
+  track:"The train rolled down the ___.", watch:"Let's ___ the sunset together.", dash:"The runners will ___ to the finish line.",
+  fell:"The leaves ___ from the tree.", fight:"Please don't ___ with your brother.", buy:"Can we ___ some ice cream?",
+  by:"The cat sat ___ the window.", stopping:"The bus is ___ at the corner.", stop:"Red means ___ and green means go.",
+  "March":"My birthday is in ___, right before April.", march:"The band will ___ down the street in the parade.",
+  next:"You are ___ in line for the slide.", indeed:"A friend in need is a friend ___.", four:"A dog has ___ legs.",
+  herself:"She tied her shoes all by ___.", power:"The storm made the ___ go out, so we used flashlights.",
+  wish:"Close your eyes and make a ___ on your birthday candles.", because:"I wore my coat ___ it was cold.",
+  cause:"Wet floors can ___ people to slip.", world:"There are seven continents in the ___.", country:"The United States is our ___.",
+  meet:"I can't wait to ___ my new teacher.", meat:"Hamburgers are made of ___.", another:"May I have ___ cookie, please?",
+  tripped:"He ___ over his shoelace and fell down.", trip:"We went on a ___ to the beach.", list:"Mom wrote a shopping ___ for the store.",
+  people:"Lots of ___ came to the fall festival.", ever:"Have you ___ seen a real whale?",
+  held:"Dad ___ my hand as we crossed the street.", church:"We sing songs at ___ on Sunday.", once:"I rode a camel ___ at the zoo.",
+  one:"I have ___ nose and two eyes.", own:"I have my ___ room with a blue bed.", before:"Wash your hands ___ you eat.",
+  know:"Do you ___ the way to the park?", no:"___, thank you, I am full.", were:"We ___ late to school yesterday.",
+  there:"Put your shoes over ___ by the door.", here:"Come ___ and sit next to me.", dead:"The ___ leaves fell off the tree.",
+  leave:"We will ___ for school at seven.", early:"The rooster wakes up ___ in the morning.", close:"Please ___ the door when you come in.",
+  flower:"A bee landed on the yellow ___.", flour:"We need ___ and eggs to bake a cake.", nothing:"The box was empty with ___ inside.",
+  ground:"The apple fell from the tree to the ___.", lead:"The duck will ___ her babies to the pond.", led:"Yesterday the teacher ___ us to the library.",
+  such:"It was ___ a sunny day that we went swimming.", morning:"I eat breakfast every ___.", however:"I like cats. ___, my sister likes dogs.",
+  mind:"Do you ___ if I sit next to you?", shall:"___ we play a game after lunch?", alone:"The puppy did not want to be left ___.",
+  order:"Put the numbers in ___ from smallest to biggest.", third:"I came in ___ place in the race.", push:"Please ___ the door to open it.",
+  point:"My pencil has a sharp ___.", within:"Stay ___ the fence when you play outside.", body:"Your heart pumps blood all through your ___.",
+  field:"The cows ate grass in the big ___.", belongs:"That red hat ___ to my sister.", cheese:"Mice love to nibble on ___.",
+  earn:"I can ___ a sticker for reading every night.", edge:"Do not stand too close to the ___ of the cliff.", feather:"The bird dropped a soft blue ___.",
+  fence:"The horse jumped over the ___.", funny:"The clown told a ___ joke.", going:"We are ___ to the zoo on Saturday.",
+  honey:"Bees make sweet ___.", letters:"There are 26 ___ in the alphabet.", orange:"I peeled an ___ for my snack.",
+  pocket:"He keeps a coin in his ___.", shoe:"My left ___ came untied.", shoes:"Take off your muddy ___ at the door.",
+  stairs:"I walked up the ___ to my bedroom.", stream:"Fish swim in the cool ___.", talks:"My parrot ___ all day long.",
+  tiny:"An ant is a ___ bug.", words:"Read the ___ on the page out loud."
+};
+</script>
+
+<script>
+/* ===================== HANDWRITING RECOGNIZER =====================
+   $P point-cloud matcher (Vatavu, Anthony & Wobbrock) with hand-built stroke templates for print letters.
+   Direction- and stroke-order-invariant; leans toward the expected letter on close calls. */
+var Recog = (function () {
+  var N = 48;
+  function dist(a, b) { var dx = a.x - b.x, dy = a.y - b.y; return Math.sqrt(dx * dx + dy * dy); }
+  function L(x1, y1, x2, y2) { return [{ x: x1, y: y1 }, { x: x2, y: y2 }]; }
+  function P() { var out = []; for (var i = 0; i < arguments.length; i++) out.push({ x: arguments[i][0], y: arguments[i][1] }); return out; }
+  function A(cx, cy, r, a0, a1) {
+    var out = [], step = a1 >= a0 ? 8 : -8, n = Math.round(Math.abs(a1 - a0) / 8);
+    for (var i = 0; i <= n; i++) { var t = (a0 + step * i) * Math.PI / 180; out.push({ x: cx + r * Math.cos(t), y: cy + r * Math.sin(t) }); }
+    return out;
+  }
+  function DOT(x, y) { return [{ x: x, y: y }, { x: x + 1, y: y + 1 }]; }
+  var RAW = [];
+  function add(letter) { RAW.push({ letter: letter, strokes: Array.prototype.slice.call(arguments, 1) }); }
+  add('a', A(27, 75, 25, 0, 360), L(52, 50, 52, 100));
+  add('a', A(27, 75, 25, 0, 360), L(52, 58, 52, 100), L(52, 100, 60, 100));
+  add('b', L(5, 0, 5, 100), A(30, 75, 25, 0, 360));
+  add('c', A(30, 75, 25, 45, 315));
+  add('d', A(27, 75, 25, 0, 360), L(52, 0, 52, 100));
+  add('e', L(5, 75, 55, 75), A(30, 75, 25, 0, -300));
+  add('f', A(35, 22, 20, 180, 315), L(15, 22, 15, 100), L(0, 50, 35, 50));
+  add('g', A(27, 75, 25, 0, 360), L(52, 50, 52, 125), A(30, 125, 22, 0, 150));
+  add('h', L(5, 0, 5, 100), A(30, 75, 25, 180, 360), L(55, 75, 55, 100));
+  add('i', L(25, 50, 25, 100), DOT(25, 30));
+  add('j', L(40, 50, 40, 125), A(20, 125, 20, 0, 120), DOT(40, 30));
+  add('k', L(5, 0, 5, 100), L(5, 80, 45, 50), L(17, 71, 48, 100));
+  add('k', L(5, 0, 5, 100), L(5, 75, 45, 50), L(5, 75, 45, 100));
+  add('l', L(25, 0, 25, 100));
+  add('m', L(5, 50, 5, 100), A(20, 68, 15, 180, 360), L(35, 68, 35, 100), A(50, 68, 15, 180, 360), L(65, 68, 65, 100));
+  add('n', L(5, 50, 5, 100), A(30, 75, 25, 180, 360), L(55, 75, 55, 100));
+  add('o', A(30, 75, 25, 0, 360));
+  add('p', L(5, 50, 5, 140), A(30, 75, 25, 0, 360));
+  add('q', A(27, 75, 25, 0, 360), L(52, 50, 52, 140));
+  add('q', A(27, 75, 25, 0, 360), L(52, 50, 52, 140), L(52, 140, 64, 128));
+  add('r', L(5, 50, 5, 100), A(30, 75, 25, 180, 300));
+  add('s', A(30, 63, 13, -20, -270), A(30, 88, 13, -90, 160));
+  add('t', L(25, 10, 25, 90), A(37, 90, 12, 180, 90), L(8, 50, 42, 50));
+  add('t', L(25, 10, 25, 100), L(8, 50, 42, 50));
+  add('u', L(5, 50, 5, 75), A(30, 75, 25, 180, 0), L(55, 50, 55, 100));
+  add('v', L(5, 50, 30, 100), L(30, 100, 55, 50));
+  add('w', P([0, 50], [17, 100], [34, 55], [51, 100], [68, 50]));
+  add('x', L(5, 50, 55, 100), L(55, 50, 5, 100));
+  add('y', L(5, 50, 30, 100), L(55, 50, 18, 140));
+  add('y', L(5, 50, 5, 75), A(30, 75, 25, 180, 0), L(55, 50, 55, 125), A(35, 125, 20, 0, 120));
+  add('z', P([5, 50], [55, 50], [5, 100], [55, 100]));
+  // capitals whose shape differs from the lowercase form
+  add('a', L(5, 100, 30, 20), L(30, 20, 55, 100), L(15, 70, 45, 70));
+  add('b', L(5, 20, 5, 100), A(8, 40, 20, 270, 90), A(8, 80, 22, 270, 90));
+  add('d', L(5, 20, 5, 100), A(5, 60, 40, 270, 90));
+  add('e', L(5, 20, 5, 100), L(5, 20, 45, 20), L(5, 60, 38, 60), L(5, 100, 45, 100));
+  add('f', L(5, 20, 5, 100), L(5, 20, 45, 20), L(5, 60, 38, 60));
+  add('g', A(35, 60, 35, 20, 315), L(68, 72, 68, 60), L(68, 60, 45, 60));
+  add('h', L(5, 20, 5, 100), L(55, 20, 55, 100), L(5, 60, 55, 60));
+  add('i', L(30, 20, 30, 100), L(15, 20, 45, 20), L(15, 100, 45, 100));
+  add('j', L(45, 20, 45, 85), A(28, 85, 17, 0, 180));
+  add('l', L(5, 20, 5, 100), L(5, 100, 50, 100));
+  add('m', P([5, 100], [5, 20], [30, 70], [55, 20], [55, 100]));
+  add('n', P([5, 100], [5, 20], [55, 100], [55, 20]));
+  add('p', L(5, 20, 5, 100), A(8, 40, 20, 270, 90));
+  add('q', A(30, 60, 35, 0, 360), L(40, 75, 60, 100));
+  add('r', L(5, 20, 5, 100), A(8, 40, 20, 270, 90), L(8, 60, 50, 100));
+  add('t', L(30, 20, 30, 100), L(5, 20, 55, 20));
+  add('y', L(5, 20, 30, 60), L(55, 20, 30, 60), L(30, 60, 30, 100));
+
+  function resample(strokes, n) {
+    var total = 0, s, i;
+    for (s = 0; s < strokes.length; s++) for (i = 1; i < strokes[s].length; i++) total += dist(strokes[s][i - 1], strokes[s][i]);
+    var I = total / Math.max(1, n - strokes.length), D = 0, out = [];
+    if (I === 0) I = 1;
+    for (s = 0; s < strokes.length; s++) {
+      var st = strokes[s];
+      out.push({ x: st[0].x, y: st[0].y, id: s });
+      for (i = 1; i < st.length; i++) {
+        var prev = st[i - 1], cur = st[i], d = dist(prev, cur);
+        while (D + d >= I && d > 0) {
+          var t = (I - D) / d;
+          var q = { x: prev.x + t * (cur.x - prev.x), y: prev.y + t * (cur.y - prev.y), id: s };
+          out.push(q); d -= (I - D); prev = q; D = 0;
+        }
+        D += d;
+      }
+    }
+    while (out.length < n) out.push(out[out.length - 1]);
+    return out.slice(0, n);
+  }
+  function normalize(strokes) {
+    var pts = resample(strokes, N), i, p;
+    var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (i = 0; i < pts.length; i++) { p = pts[i]; if (p.x < minX) minX = p.x; if (p.y < minY) minY = p.y; if (p.x > maxX) maxX = p.x; if (p.y > maxY) maxY = p.y; }
+    var size = Math.max(maxX - minX, maxY - minY) || 1, cx = 0, cy = 0;
+    var out = pts.map(function (p) { var q = { x: (p.x - minX) / size, y: (p.y - minY) / size, id: p.id }; cx += q.x; cy += q.y; return q; });
+    cx /= out.length; cy /= out.length;
+    for (i = 0; i < out.length; i++) { out[i].x -= cx; out[i].y -= cy; }
+    return out;
+  }
+  function cloudDistance(a, b, start) {
+    var n = a.length, matched = new Array(n), sum = 0, i = start, j;
+    for (j = 0; j < n; j++) matched[j] = false;
+    do {
+      var idx = -1, min = Infinity;
+      for (j = 0; j < n; j++) if (!matched[j]) { var d = dist(a[i], b[j]); if (d < min) { min = d; idx = j; } }
+      matched[idx] = true;
+      sum += (1 - ((i - start + n) % n) / n) * min;
+      i = (i + 1) % n;
+    } while (i !== start);
+    return sum;
+  }
+  function greedyMatch(a, b) {
+    var n = a.length, step = Math.floor(Math.sqrt(n)), min = Infinity, i;
+    for (i = 0; i < n; i += step) { var d1 = cloudDistance(a, b, i), d2 = cloudDistance(b, a, i); if (d1 < min) min = d1; if (d2 < min) min = d2; }
+    return min;
+  }
+  var TEMPLATES = RAW.map(function (t) { return { letter: t.letter, pts: normalize(t.strokes) }; });
+  function recognize(strokes) {
+    var pts = normalize(strokes), res = [], seen = {}, i;
+    for (i = 0; i < TEMPLATES.length; i++) res.push({ letter: TEMPLATES[i].letter, d: greedyMatch(pts, TEMPLATES[i].pts) });
+    res.sort(function (a, b) { return a.d - b.d; });
+    var out = [];
+    for (i = 0; i < res.length; i++) if (!seen[res[i].letter]) { seen[res[i].letter] = true; out.push(res[i]); }
+    return out;
+  }
+  function read(strokes, expected, factor) {
+    factor = factor || 1.2;
+    var c = recognize(strokes);
+    if (!c.length) return { letter: '', sure: false };
+    if (!expected || c[0].letter === expected) return { letter: c[0].letter, sure: true, d: c[0].d };
+    for (var i = 1; i < Math.min(3, c.length); i++) if (c[i].letter === expected && c[i].d <= c[0].d * factor) return { letter: expected, sure: false, d: c[i].d };
+    return { letter: c[0].letter, sure: true, d: c[0].d };
+  }
+  return { recognize: recognize, read: read };
+})();
+</script>
+
+<script>
+(function () {
+'use strict';
+var $ = function (s, el) { return (el || document).querySelector(s); };
+var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+function h(html) { var t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; }
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var app = $('#app');
+
+/* ---------- storage ---------- */
+var KEY = 'spelling-hawks-v1';
+var store = { words: {}, stars: 0, settings: { input: 'type', sfx: true, voice: true, name: '' }, customWeeks: [] };
+try { var raw = localStorage.getItem(KEY); if (raw) { var j = JSON.parse(raw); store.words = j.words || {}; store.stars = j.stars || 0; store.settings = Object.assign(store.settings, j.settings || {}); store.customWeeks = j.customWeeks || []; } } catch (e) {}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+function prog(w) { return store.words[w.toLowerCase()] || { ok: 0, miss: 0, streak: 0, last: 0 }; }
+function setProg(w, p) { store.words[w.toLowerCase()] = p; save(); }
+function isMastered(w) { return prog(w).streak >= 3; }
+function isTricky(w) { var p = prog(w); return p.miss > 0 && p.streak < 2; }
+
+/* ---------- data helpers ---------- */
+var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+function toDate(iso) { var p = iso.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); }
+function fmt(iso, wd) { var x = toDate(iso); return (wd ? DAYS[x.getDay()] + ', ' : '') + MONTHS[x.getMonth()] + ' ' + x.getDate(); }
+function fmtShort(iso) { var x = toDate(iso); return MONTHS[x.getMonth()].slice(0, 3) + ' ' + x.getDate(); }
+function allWeeks() { return (store.customWeeks || []).concat(WEEKS).sort(function (a, b) { return b.id < a.id ? -1 : b.id > a.id ? 1 : 0; }); }
+function sentenceFor(w) { return SENTENCES[w] || SENTENCES[w.toLowerCase()] || null; }
+function allWords() { var seen = {}, out = []; allWeeks().forEach(function (wk) { wk.words.forEach(function (w) { var k = w.toLowerCase(); if (!seen[k]) { seen[k] = true; out.push(w); } }); }); return out; }
+function trickyWords() { return allWords().filter(isTricky); }
+function masteredCount(words) { return words.filter(isMastered).length; }
+
+/* ---------- sound effects (synthesized, no files) ---------- */
+var actx = null;
+function audio() { if (!store.settings.sfx) return null; try { if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === 'suspended') actx.resume(); return actx; } catch (e) { return null; } }
+function tone(freq, t0, dur, type, gain) {
+  var ac = audio(); if (!ac) return;
+  var o = ac.createOscillator(), g = ac.createGain(); o.type = type || 'sine'; o.frequency.value = freq;
+  var t = ac.currentTime + t0; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(gain || 0.15, t + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t + dur + 0.05);
+}
+var sfx = {
+  correct: function () { [523.25, 659.25, 783.99, 1046.5].forEach(function (f, i) { tone(f, i * 0.09, 0.28, 'triangle', 0.16); }); tone(1318.5, 0.36, 0.45, 'triangle', 0.12); },
+  wrong: function () { tone(330, 0, 0.18, 'sine', 0.12); tone(262, 0.17, 0.28, 'sine', 0.12); },
+  pop: function () { tone(880, 0, 0.07, 'square', 0.04); },
+  flip: function () { tone(600, 0, 0.06, 'sine', 0.07); tone(900, 0.06, 0.07, 'sine', 0.07); },
+  star: function () { tone(1568, 0, 0.12, 'triangle', 0.08); tone(2093, 0.1, 0.2, 'triangle', 0.08); }
+};
+
+/* ---------- speech ---------- */
+var voice = null;
+function pickVoice() {
+  if (!('speechSynthesis' in window)) return;
+  var vs = speechSynthesis.getVoices(); if (!vs.length) return;
+  var prefs = ['Samantha', 'Google US English', 'Microsoft Aria', 'Microsoft Jenny', 'Microsoft Zira', 'Karen', 'Moira'];
+  for (var i = 0; i < prefs.length; i++) { var v = vs.filter(function (x) { return x.name.indexOf(prefs[i]) === 0 && /^en/i.test(x.lang); })[0]; if (v) { voice = v; return; } }
+  voice = vs.filter(function (x) { return x.lang === 'en-US'; })[0] || vs.filter(function (x) { return /^en/i.test(x.lang); })[0] || null;
+}
+if ('speechSynthesis' in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function say(text, rate) {
+  if (!store.settings.voice || !('speechSynthesis' in window)) return;
+  var u = new SpeechSynthesisUtterance(text); if (voice) u.voice = voice; u.lang = 'en-US'; u.rate = rate || 0.9; u.pitch = 1.05;
+  speechSynthesis.speak(u);
+}
+function hush() { if ('speechSynthesis' in window) speechSynthesis.cancel(); }
+function sayWord(w) { hush(); say(w, 0.8); }
+function saySentence(w, blank) { var s = sentenceFor(w); if (!s) return; say(s.replace('___', blank ? 'blank' : w), 0.9); }
+function spellOut(w) { say(w.toUpperCase().split('').join(', '), 0.85); }
+
+/* ---------- confetti ---------- */
+var fx = $('#fx'), fctx = fx.getContext('2d'), parts = [], fxRaf = 0;
+function confetti(origin) {
+  if (reduced) return;
+  var dpr = window.devicePixelRatio || 1; fx.width = innerWidth * dpr; fx.height = innerHeight * dpr; fctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  var colors = ['#2563C9', '#E2683C', '#F5B82E', '#2FB57E', '#5DB8F0', '#7B4B2A'];
+  var ox = origin ? origin.x : innerWidth / 2, oy = origin ? origin.y : innerHeight * 0.42, spread = origin ? 30 : 160;
+  parts = [];
+  for (var i = 0; i < 160; i++) parts.push({ x: ox + (Math.random() - .5) * spread, y: oy, vx: (Math.random() - .5) * 16, vy: -Math.random() * 15 - 5, w: 7 + Math.random() * 7, h: 4 + Math.random() * 6, r: Math.random() * Math.PI, vr: (Math.random() - .5) * .35, c: pick(colors), star: origin && Math.random() < .3, life: 1 });
+  var t0 = performance.now();
+  cancelAnimationFrame(fxRaf);
+  (function loop(now) {
+    var el = (now - t0) / 1000;
+    fctx.clearRect(0, 0, innerWidth, innerHeight);
+    parts.forEach(function (p) { p.vy += 0.42; p.x += p.vx; p.y += p.vy; p.vx *= 0.99; p.r += p.vr; p.life = Math.max(0, 1 - Math.max(0, el - 1.6) / 0.9);
+      fctx.save(); fctx.translate(p.x, p.y); fctx.rotate(p.r); fctx.globalAlpha = p.life; fctx.fillStyle = p.c;
+      if (p.star) { fctx.fill(new Path2D(starPath(0, 0, p.w * .8, p.w * .33, 5))); } else fctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); fctx.restore(); });
+    if (el < 2.6) fxRaf = requestAnimationFrame(loop); else fctx.clearRect(0, 0, innerWidth, innerHeight);
+  })(t0);
+}
+
+/* ---------- hawk mascot ---------- */
+function starPath(cx, cy, R, r, n) {
+  var d = '', i, a, rad;
+  for (i = 0; i < n * 2; i++) { a = Math.PI / n * i - Math.PI / 2; rad = i % 2 ? r : R; d += (i ? 'L' : 'M') + (cx + rad * Math.cos(a)).toFixed(1) + ' ' + (cy + rad * Math.sin(a)).toFixed(1); }
+  return d + 'Z';
+}
+var HAWK = { brown: '#7B4B2A', dark: '#4E2C14', light: '#A06A3E', cream: '#F6E9D2', streak: '#B98552', rust: '#C4532F', rustDark: '#8E3519', gold: '#F5B82E', goldDark: '#B07A0C' };
+/* The hawk's head, drawn around (110, 84) so the big hawk and the small header badge share it. */
+function hawkHead() {
+  var H = HAWK;
+  // swept-back crest, flat-topped head with cheek feathers, cream throat, dark cheek stripes, fierce brow ridges, hooked beak
+  return '<path d="M98 60 Q102 46 112 43 Q110 49 114 51 Q119 45 128 45 Q121 52 124 60Z" fill="' + H.dark + '" stroke="' + H.dark + '" stroke-width="1.2" stroke-linejoin="round"/>' +
+    '<path d="M80 84 Q80 58 110 56 Q140 58 140 84 Q141 96 136 104 L144 108 L134 111 Q126 119 110 119 Q94 119 86 111 L76 108 L84 104 Q79 96 80 84Z" fill="' + H.brown + '" stroke="' + H.dark + '" stroke-width="2" stroke-linejoin="round"/>' +
+    '<path d="M88 96 Q92 115 110 117 Q128 115 132 96 Q122 104 110 104 Q98 104 88 96Z" fill="' + H.cream + '"/>' +
+    '<path d="M89 91 Q91 102 96 109 M131 91 Q129 102 124 109" stroke="' + H.dark + '" stroke-width="3.5" stroke-linecap="round" fill="none"/>' +
+    '<g class="eyes"><ellipse cx="97" cy="83" rx="7.8" ry="7.8" fill="#fff"/><ellipse cx="123" cy="83" rx="7.8" ry="7.8" fill="#fff"/>' +
+      '<circle cx="98" cy="84" r="5.2" fill="' + H.gold + '"/><circle cx="122" cy="84" r="5.2" fill="' + H.gold + '"/>' +
+      '<circle cx="98" cy="84" r="3.1" fill="#1B1208"/><circle cx="122" cy="84" r="3.1" fill="#1B1208"/>' +
+      '<circle cx="99.5" cy="82.3" r="1.4" fill="#fff"/><circle cx="123.5" cy="82.3" r="1.4" fill="#fff"/></g>' +
+    '<path d="M83 77 Q96 67 109 79 Q100 75 85 81Z M137 77 Q124 67 111 79 Q120 75 135 81Z" fill="#2E1A0A" stroke="#2E1A0A" stroke-width="1.5" stroke-linejoin="round"/>' +
+    '<path d="M102 86 Q110 80 118 86 Q122 98 114 110 Q110 114 108 109 Q107 100 102 86Z" fill="' + H.gold + '" stroke="' + H.goldDark + '" stroke-width="1.6" stroke-linejoin="round"/>' +
+    '<path d="M114 110 Q110 114 108 109 Q111 106.5 114.5 107.5Z" fill="#4A3410"/>' +
+    '<circle cx="106.5" cy="89" r="1.2" fill="' + H.goldDark + '"/>';
+}
+function hawkSvg(cls) {
+  return '<svg class="mascot ' + (cls || '') + '" viewBox="74 36 72 84" aria-hidden="true">' + hawkHead() + '</svg>';
+}
+function mascotReact(kind) { var b = $('.mascot'); if (!b) return; b.classList.remove('happy', 'sad'); void b.offsetWidth; b.classList.add(kind); setTimeout(function () { b.classList.remove(kind); }, 1600); }
+function hawkWing() {
+  var H = HAWK;
+  return '<path d="M94 116 C72 94 42 82 10 90 C18 96 18 101 13 105 C25 107 27 112 22 118 C36 118 39 124 34 130 C48 128 52 134 50 141 C62 139 68 143 68 150 C80 146 89 139 96 132Z" fill="' + H.brown + '" stroke="' + H.dark + '" stroke-width="2" stroke-linejoin="round"/>' +
+    '<path d="M92 120 C74 104 52 96 32 98 C48 104 62 113 72 125 C80 131 87 133 94 131Z" fill="' + H.light + '"/>' +
+    '<path d="M22 104 C34 106 44 110 54 116 M28 118 C40 119 50 122 60 127 M44 131 C52 132 58 135 64 140" stroke="' + H.dark + '" stroke-width="1.6" stroke-linecap="round" fill="none" opacity=".55"/>';
+}
+function hawkBigSvg() {
+  var H = HAWK;
+  var sparks = [[36, 66, 7, 0], [186, 112, 6, .5], [26, 168, 5, 1.1], [194, 186, 7, .8], [54, 28, 5, 1.4], [166, 22, 6, .3], [190, 60, 4, 1.7]];
+  var burst = [[110, 112], [140, 124], [146, 152], [80, 124], [74, 152], [110, 172]];
+  var streaks = [[101, 156], [119, 156], [110, 168], [99, 180], [121, 180]];
+  return '<svg class="hawk" viewBox="0 0 220 262" aria-hidden="true">' +
+    '<ellipse class="hshadow" cx="110" cy="252" rx="44" ry="7" fill="#1A469A"/>' +
+    sparks.map(function (s) { return '<path class="spark" style="animation-delay:' + s[3] + 's" d="' + starPath(s[0], s[1], s[2], s[2] * .32, 4) + '" fill="' + H.gold + '"/>'; }).join('') +
+    '<g class="hbody">' +
+      // red tail fan
+      '<path d="M94 186 L76 236 Q93 244 110 240 Q127 244 144 236 L126 186Z" fill="' + H.rust + '" stroke="' + H.rustDark + '" stroke-width="2" stroke-linejoin="round"/>' +
+      '<path d="M110 192 L110 238 M101 192 L92 236 M119 192 L128 236" stroke="' + H.rustDark + '" stroke-width="1.5" opacity=".5"/>' +
+      '<path d="M80 226 Q110 233 140 226" stroke="#6B2A14" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+      // wings (the right one is the left one mirrored)
+      '<g class="wingL">' + hawkWing() + '</g>' +
+      '<g class="wingR"><g transform="translate(220 0) scale(-1 1)">' + hawkWing() + '</g></g>' +
+      // talons
+      '<path d="M100 194 L98 212 M120 194 L122 212" stroke="' + H.gold + '" stroke-width="6" stroke-linecap="round"/>' +
+      '<path d="M98 212 l-7 5 M98 212 l0 8 M98 212 l7 5 M122 212 l-7 5 M122 212 l0 8 M122 212 l7 5" stroke="' + H.gold + '" stroke-width="3.5" stroke-linecap="round"/>' +
+      // body, cream chest with streaks and a gold star
+      '<ellipse cx="110" cy="152" rx="36" ry="46" fill="' + H.brown + '" stroke="' + H.dark + '" stroke-width="2"/>' +
+      '<ellipse cx="110" cy="162" rx="24" ry="33" fill="' + H.cream + '"/>' +
+      streaks.map(function (p) { return '<path d="M' + (p[0] - 4) + ' ' + p[1] + ' l4 4 l4 -4" stroke="' + H.streak + '" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'; }).join('') +
+      '<path class="badgeStar" id="wandStar" d="' + starPath(110, 140, 10, 4.2, 5) + '" fill="' + H.gold + '" stroke="#C98E0A" stroke-width="1.5" stroke-linejoin="round"/>' +
+      '<g class="burst">' + burst.map(function (b, i) { return '<path d="' + starPath(b[0], b[1], 6, 2.2, i % 2 ? 4 : 5) + '" fill="' + [H.gold, '#E2683C', '#5DB8F0'][i % 3] + '"/>'; }).join('') + '</g>' +
+      '<g class="hhead">' + hawkHead() + '</g>' +
+    '</g></svg>';
+}
+function hawkHtml() { return '<div class="hawkZone"><div class="fsay" id="fsay" aria-hidden="true"></div>' + hawkBigSvg() + '</div>'; }
+function kidName() { return (store.settings.name || '').trim(); }
+function hawkCheers() { var c = ['Hawk-some! 🦅', 'Soaring high!', 'Sharp eyes!', 'Go, Hawks!', 'Talon-ted speller!']; if (kidName()) c.push('Way to go, ' + kidName() + '!'); return c; }
+var HAWK_OOPS = ['You can do it!', 'Try again!', 'Almost there!'];
+function hawkReact(kind) {
+  var f = $('.hawk'); if (!f) return;
+  f.classList.remove('cheer', 'oops'); void f.getBoundingClientRect(); f.classList.add(kind);
+  setTimeout(function () { f.classList.remove(kind); }, 1400);
+  var b = $('#fsay'); if (!b) return;
+  b.textContent = pick(kind === 'cheer' ? hawkCheers() : HAWK_OOPS); b.classList.add('show');
+  clearTimeout(hawkReact.t); hawkReact.t = setTimeout(function () { b.classList.remove('show'); }, 1800);
+}
+function wandOrigin() {
+  var s = $('#wandStar'); if (!s) return null;
+  var r = s.getBoundingClientRect(); if (!r.width || r.bottom < 0 || r.top > innerHeight) return null;
+  return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+}
+
+/* ---------- toast ---------- */
+var toastT = 0;
+function toast(msg) { var t = $('.toast'); if (!t) { t = h('<div class="toast" role="status"></div>'); document.body.appendChild(t); } t.textContent = msg; clearTimeout(toastT); toastT = setTimeout(function () { t.remove(); }, 2600); }
+
+/* ===================== HOME ===================== */
+var homePart = 'all';
+/* First visit on this device: ask the child's name so the hawk can cheer for them. Stored in this browser only. */
+function renderWelcome() {
+  app.innerHTML = '<section class="card welcome">' + hawkSvg('bigmascot') + '<h2>Welcome to Spelling Hawks!</h2>' +
+    '<p class="note">What\'s your first name? The hawk will cheer for you.</p>' +
+    '<input class="typein" id="kidName" type="text" maxlength="20" autocomplete="off" autocapitalize="words" spellcheck="false" aria-label="Your first name" placeholder="your name">' +
+    '<div class="stack"><button class="btn big" id="nameGo">Let\'s spell! ➔</button><button class="linkbtn" id="nameSkip">Skip</button></div></section>';
+  var inp = $('#kidName');
+  function done(name) { store.settings.name = name; store.settings.asked = true; save(); sfx.pop(); renderHome(); }
+  $('#nameGo').addEventListener('click', function () { done(inp.value.trim()); });
+  inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); done(inp.value.trim()); } });
+  $('#nameSkip').addEventListener('click', function () { done(''); });
+}
+function renderHome() {
+  hush();
+  if (!store.settings.asked) return renderWelcome();
+  var weeks = allWeeks(), cur = weeks[0], older = weeks.slice(1);
+  var all = allWords(), tricky = trickyWords();
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var testLine = cur.test ? ((toDate(cur.test) < today ? 'Test was ' : 'Test on ') + fmt(cur.test, true)) : '';
+  var parts = [['all', 'All ' + cur.words.length]];
+  if (cur.words.length > 12) { for (var i = 0; i < cur.words.length; i += 10) { var end = Math.min(cur.words.length, i + 10); parts.push([String(i), (i + 1) + '–' + end]); } }
+  if (parts.every(function (p) { return p[0] !== homePart; })) homePart = 'all';
+  app.innerHTML =
+    '<header class="top">' + hawkSvg() + '<div><h1>Spelling Hawks</h1><p class="sub">' + (kidName() ? 'Hi, ' + esc(kidName()) + '! ' : '') + '⭐ ' + store.stars + ' stars · ' + masteredCount(all) + ' of ' + all.length + ' words mastered</p></div></header>' +
+    '<section class="card hero"><div class="eyebrow">This week\'s words</div><h2>Week of ' + fmt(cur.id) + '</h2><p class="meta">' + esc(testLine) + (testLine ? ' · ' : '') + cur.words.length + ' words</p>' +
+    '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="' + cur.words.length + '" aria-valuenow="' + masteredCount(cur.words) + '" aria-label="Words mastered this week"><i style="width:' + Math.round(100 * masteredCount(cur.words) / cur.words.length) + '%"></i></div>' +
+    '<div class="chips" role="group" aria-label="Which words to practice">' + parts.map(function (p) { return '<button class="chip" data-part="' + p[0] + '" aria-pressed="' + (homePart === p[0]) + '">' + esc(p[1]) + '</button>'; }).join('') + '</div>' +
+    '<div class="actions"><button class="btn big" data-go="spell">✏️ Spell it!</button><button class="btn big pink" data-go="sentence">💬 Fill in the sentence</button></div>' +
+    '<details class="words"><summary>See the words</summary><div class="wordgrid">' + cur.words.map(function (w) { return '<span class="wtag' + (isMastered(w) ? ' m' : isTricky(w) ? ' t' : '') + '">' + esc(w) + '</span>'; }).join('') + '</div><p class="note">Yellow = mastered (3 in a row). Orange = tricky.</p></details></section>' +
+    '<div class="twocol">' +
+    '<section class="card deck"><div class="t">🌶️ Tricky words</div><div class="m">' + (tricky.length ? tricky.length + ' words to practice' : 'None yet — keep going!') + '</div><div class="row"><button class="btn sm sun" data-deck="tricky" data-go="spell"' + (tricky.length ? '' : ' disabled') + '>✏️ Spell</button><button class="btn sm ghost" data-deck="tricky" data-go="sentence"' + (tricky.length ? '' : ' disabled') + '>💬 Sentence</button></div></section>' +
+    '<section class="card deck"><div class="t">🎲 Mix it all up</div><div class="m">' + all.length + ' words from every week</div><div class="row"><button class="btn sm mint" data-deck="all" data-go="spell">✏️ Spell</button><button class="btn sm ghost" data-deck="all" data-go="sentence">💬 Sentence</button></div></section>' +
+    '</div>' +
+    (older.length ? '<section class="card older"><h3>📚 Older weeks</h3>' + older.map(function (wk) {
+      var m = masteredCount(wk.words);
+      return '<div class="wk"><div><div class="t">Week of ' + fmt(wk.id) + '</div><div class="m">' + wk.words.length + ' words · ⭐ ' + m + ' mastered</div><div class="bar" aria-hidden="true"><i style="width:' + Math.round(100 * m / wk.words.length) + '%"></i></div></div>' +
+        '<div class="row"><button class="btn sm" data-deck="' + wk.id + '" data-go="spell" aria-label="Spell words from week of ' + fmt(wk.id) + '">✏️</button><button class="btn sm pink" data-deck="' + wk.id + '" data-go="sentence" aria-label="Sentences from week of ' + fmt(wk.id) + '">💬</button></div></div>';
+    }).join('') + '</section>' : '') +
+    '<footer class="foot"><button class="linkbtn" id="grownups">For grown-ups</button><div class="note">Words updated ' + esc(WORDS_UPDATED) + '</div></footer>';
+  $$('.chip', app).forEach(function (c) { c.addEventListener('click', function () { homePart = c.dataset.part; $$('.chip', app).forEach(function (x) { x.setAttribute('aria-pressed', x === c); }); sfx.pop(); }); });
+  $$('[data-go]', app).forEach(function (b) { b.addEventListener('click', function () {
+    var deck = b.dataset.deck, mode = b.dataset.go, words, title;
+    if (!deck) { words = homePart === 'all' ? cur.words : cur.words.slice(+homePart, +homePart + 10); title = 'This week'; }
+    else if (deck === 'tricky') { words = trickyWords(); title = 'Tricky words'; }
+    else if (deck === 'all') { words = allWords(); title = 'Everything'; }
+    else { var wk = weeks.filter(function (x) { return x.id === deck; })[0]; words = wk.words; title = 'Week of ' + fmtShort(wk.id); }
+    startSession(title, words, mode);
+  }); });
+  $('#grownups').addEventListener('click', openSettings);
+}
+
+/* ===================== SESSION ===================== */
+var S = null, W = null;
+var PRAISE = ['Hawk-some!', 'Soaring!', 'Sharp eyes!', 'Super speller!', 'Sky high!', 'Fantastic!', 'Wow, amazing!', 'Perfect!'];
+function praise() { return kidName() && Math.random() < 0.3 ? 'Way to go, ' + kidName() + '!' : pick(PRAISE); }
+var RETRY = ['Almost! Try again 💪', 'Not quite — give it another go!', 'So close! Look carefully and try again.', 'Oops! One more try!'];
+function orderWords(words) {
+  return words.map(function (w) { var p = prog(w); var pri = (p.streak >= 3 ? 2 : 0) + (p.miss > 0 && p.streak < 2 ? -1 : 0) + Math.random() * 0.9; return { w: w, pri: pri }; })
+    .sort(function (a, b) { return a.pri - b.pri; }).map(function (x) { return x.w; });
+}
+function startSession(title, words, mode) {
+  var usable = words.filter(function (w) { return mode === 'spell' || sentenceFor(w); });
+  if (!usable.length) { toast(mode === 'sentence' ? 'No sentences for these words yet.' : 'No words to practice yet.'); return; }
+  var ordered = orderWords(usable);
+  S = { title: title, mode: mode, queue: ordered.slice(10), round: ordered.slice(0, 10), idx: 0, stars: 0, results: [], total: ordered.length, doneCount: 0 };
+  renderWord();
+}
+function currentInput() { return store.settings.input || 'type'; }
+function setInput(m) { store.settings.input = m; save(); }
+
+function renderWord() {
+  hush();
+  var word = S.round[S.idx];
+  W = { word: word, target: word.toLowerCase(), misses: 0, peeked: false, done: false, get: function () { return ''; }, reset: function () {}, boxes: [] };
+  var isSent = S.mode === 'sentence';
+  app.innerHTML =
+    '<header class="sbar"><button class="iconbtn" id="home" aria-label="Back to home">🏠</button><div class="pips" aria-label="Progress">' +
+    S.round.map(function (_, i) { var r = S.results[i]; return '<span class="pip' + (i === S.idx ? ' now' : r === true ? ' ok' : r === false ? ' no' : '') + '"></span>'; }).join('') +
+    '</div><div class="stars" aria-live="polite">⭐ ' + S.stars + '</div><button class="iconbtn" id="voiceTog" aria-label="Voice on or off">' + (store.settings.voice ? '🔊' : '🔇') + '</button></header>' +
+    '<div class="stage"><div class="flip flipped" id="flip">' +
+    '<section class="face front card" id="front" inert><div class="eyebrow">👀 Peek! Your word is</div>' + hawkSvg('bigmascot') +
+    '<div class="word">' + esc(word) + '</div>' +
+    '<div class="row center"><button class="btn sm ghost" id="sayIt">🔊 Say it</button>' + (sentenceFor(word) ? '<button class="btn sm ghost" id="sentIt">💬 In a sentence</button>' : '') + '<button class="btn sm ghost" id="spellIt">🔤 Spell it out</button></div>' +
+    '<div style="height:14px"></div><button class="btn big" id="ready">' + (isSent ? 'Hide it and fill in the sentence ➔' : 'Hide it and spell it ➔') + '</button></section>' +
+    '<section class="face back card" id="back"><div class="eyebrow">' + (isSent ? 'Which word fits?' : 'Now you spell it!') + '</div>' +
+    (isSent ? '<p class="sentence" id="sentLine"></p>' : '') +
+    '<div class="hintbar"><button class="btn sm ghost" id="hear">🔊 Hear it again</button><button class="btn sm ghost" id="peek">👀 Peek</button></div>' +
+    '<div class="inputArea" id="inputArea"></div><div class="fb" id="fb" aria-live="polite"></div>' +
+    '<button class="btn big mint" id="check"' + (isSent ? ' hidden' : '') + '>Check ✓</button>' +
+    (isSent ? '' : '<div class="modes" role="group" aria-label="How to answer"><button class="mode" data-m="type"><span>⌨️</span>Type</button><button class="mode" data-m="write"><span>✏️</span>Write</button><button class="mode" data-m="tiles"><span>🔤</span>Tiles</button></div>') +
+    '</section></div></div>' + hawkHtml();
+  if (isSent) renderSentenceLine('');
+  $('#home').addEventListener('click', function () { renderHome(); });
+  $('#voiceTog').addEventListener('click', function () { store.settings.voice = !store.settings.voice; save(); $('#voiceTog').textContent = store.settings.voice ? '🔊' : '🔇'; if (!store.settings.voice) hush(); });
+  $('#sayIt').addEventListener('click', function () { sayWord(word); });
+  var si = $('#sentIt'); if (si) si.addEventListener('click', function () { hush(); saySentence(word, false); });
+  $('#spellIt').addEventListener('click', function () { hush(); spellOut(word); say(word, 0.8); });
+  $('#ready').addEventListener('click', flipToBack);
+  $('#hear').addEventListener('click', function () { hush(); if (isSent) { saySentence(word, true); } else { say(word, 0.8); saySentence(word, false); } });
+  $('#peek').addEventListener('click', peek);
+  $('#check').addEventListener('click', check);
+  $$('.mode', app).forEach(function (b) { b.addEventListener('click', function () { setInput(b.dataset.m); sfx.pop(); buildInput(); }); });
+  buildInput();
+  setTimeout(function () { if (isSent) saySentence(word, true); else { say(word, 0.8); saySentence(word, false); } }, 250);
+}
+function renderSentenceLine(typed) {
+  var el = $('#sentLine'); if (!el) return;
+  var s = sentenceFor(W.word) || '';
+  var parts = s.split('___');
+  el.innerHTML = esc(parts[0]) + '<span class="blank' + (typed ? ' filled' : '') + '">' + (typed ? esc(typed) : ' ') + '</span>' + esc(parts.slice(1).join('___'));
+}
+/* Cards open on the answer side (flipped). Peek turns the card over to show the word; "Hide it" turns it back. */
+function flipToBack() {
+  sfx.flip(); hush();
+  $('#front').setAttribute('inert', ''); $('#back').removeAttribute('inert');
+  $('#flip').classList.add('flipped');
+}
+function peek() {
+  W.peeked = true; sfx.flip(); hush();
+  $('#back').setAttribute('inert', ''); $('#front').removeAttribute('inert');
+  $('#flip').classList.remove('flipped');
+  setTimeout(function () { sayWord(W.word); }, 300);
+}
+function flashWord() {
+  W.peeked = true; hush(); sayWord(W.word);
+  var fb = $('#fb'); fb.innerHTML = '<span class="reveal">' + esc(W.word) + '</span>';
+  setTimeout(function () { if (fb.querySelector('.reveal')) fb.innerHTML = ''; }, 2500);
+}
+
+/* ---------- inputs ---------- */
+function buildInput() {
+  var area = $('#inputArea'); if (!area) return;
+  var m = currentInput();
+  $$('.mode', app).forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.m === m); });
+  area.innerHTML = '';
+  W.boxes = [];
+  if (S.mode === 'sentence') buildBank(area); else if (m === 'type') buildType(area); else if (m === 'write') buildWrite(area); else buildTiles(area);
+}
+/* Word bank: the answer plus 4 others from this session (falling back to every week). Up to 2 are look-alikes
+   (homophones, shared start, small spelling difference) so she has to read the sentence, not just recognise a word. */
+function editDist(a, b) {
+  var d = [], i, j;
+  for (i = 0; i <= a.length; i++) { d[i] = [i]; for (j = 1; j <= b.length; j++) d[i][j] = i ? Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)) : j; }
+  return d[a.length][b.length];
+}
+function bankChoices(word) {
+  var t = word.toLowerCase(), seen = {}, session = [], other = [];
+  seen[t] = true;
+  function add(list) { return function (w) { var k = w.toLowerCase(); if (!seen[k]) { seen[k] = true; list.push(w); } }; }
+  S.round.concat(S.queue).forEach(add(session)); allWords().forEach(add(other));
+  var pool = shuffle(session).concat(shuffle(other));
+  var near = shuffle(pool.filter(function (w) { var k = w.toLowerCase(); return editDist(k, t) <= 2 || k.slice(0, 3) === t.slice(0, 3) || k.indexOf(t) >= 0 || t.indexOf(k) >= 0; }))
+    .sort(function (a, b) { return editDist(a.toLowerCase(), t) - editDist(b.toLowerCase(), t); }).slice(0, 2);
+  var picks = near.slice();
+  pool.forEach(function (w) { if (picks.length < 4 && picks.indexOf(w) < 0) picks.push(w); });
+  return shuffle(picks.concat([word]));
+}
+function buildBank(area) {
+  var choices = W.choices || (W.choices = bankChoices(W.word));
+  area.innerHTML = '<div class="bank" role="group" aria-label="Word bank">' + choices.map(function (c) { return '<button class="chip" data-w="' + esc(c) + '">' + esc(c) + '</button>'; }).join('') + '</div>';
+  $$('.chip', area).forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (W.done || b.classList.contains('wrong')) return;
+      var c = b.dataset.w; renderSentenceLine(c);
+      if (c.toLowerCase() === W.target) { b.classList.add('right'); onCorrect(); }
+      else { b.classList.add('wrong'); b.setAttribute('aria-disabled', 'true'); onWrong(c); }
+    });
+  });
+  W.get = function () { return ''; };
+  W.reset = function () { renderSentenceLine(''); };
+}
+function buildType(area) {
+  var inp = h('<input class="typein" id="typein" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" inputmode="text" enterkeyhint="done" aria-label="Type the word" placeholder="type here">');
+  area.appendChild(inp);
+  inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); check(); } });
+  inp.addEventListener('input', function () { renderSentenceLine(inp.value); });
+  W.get = function () { return inp.value.trim(); };
+  W.reset = function () { inp.value = ''; renderSentenceLine(''); inp.focus(); };
+  W.showFilled = function () {};
+  if (!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) setTimeout(function () { inp.focus(); }, 350);
+}
+function buildWrite(area) {
+  var wrap = h('<div><div class="eyebrow" style="margin-bottom:8px">Write one letter in each box</div><div class="boxes" id="boxes"></div><div class="row center" style="margin-top:10px"><button class="btn sm ghost" id="clearAll">🧽 Clear all</button></div></div>');
+  area.appendChild(wrap);
+  var boxesEl = $('#boxes', wrap);
+  W.target.split('').forEach(function (ch, i) { boxesEl.appendChild(makeBox(i, ch)); });
+  $('#clearAll', wrap).addEventListener('click', function () { W.boxes.forEach(function (b) { b.clear(); }); });
+  W.get = function () { return W.boxes.map(function (b) { return b.strokes.length ? (b.letter || '?') : ''; }).join(''); };
+  W.reset = function () { W.boxes.forEach(function (b) { b.clear(); }); };
+  W.pending = function () { return W.boxes.some(function (b) { return b.timer; }); };
+}
+function makeBox(i, expected) {
+  var box = h('<div class="box"><canvas aria-label="Letter ' + (i + 1) + '"></canvas><span class="guess"></span><button class="erase" aria-label="Erase letter ' + (i + 1) + '">×</button></div>');
+  var cv = box.querySelector('canvas'), ctx = cv.getContext('2d'), guess = box.querySelector('.guess');
+  var st = { strokes: [], letter: '', sure: true, cur: null, timer: 0 };
+  function strokeColor() { return getComputedStyle(document.documentElement).getPropertyValue('--violet').trim() || '#7C4DFF'; }
+  function size() { var r = box.getBoundingClientRect(); var dpr = window.devicePixelRatio || 1; cv.width = Math.max(1, r.width * dpr); cv.height = Math.max(1, r.height * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); redraw(); }
+  function pen() { ctx.lineWidth = 5; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = strokeColor(); }
+  function redraw() { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); ctx.restore(); pen(); st.strokes.forEach(function (s) { ctx.beginPath(); ctx.moveTo(s[0].x, s[0].y); for (var k = 1; k < s.length; k++) ctx.lineTo(s[k].x, s[k].y); if (s.length === 1) ctx.lineTo(s[0].x + 0.1, s[0].y + 0.1); ctx.stroke(); }); }
+  function pt(e) { var r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+  function recognizeLater() { clearTimeout(st.timer); st.timer = setTimeout(function () { st.timer = 0; if (!st.strokes.length) { st.letter = ''; guess.textContent = ''; return; } var r = Recog.read(st.strokes, expected); st.letter = r.letter; st.sure = r.sure; guess.textContent = r.letter; guess.classList.toggle('soft', !r.sure); if (S.mode === 'sentence') renderSentenceLine(W.get()); }, 420); }
+  cv.addEventListener('pointerdown', function (e) { e.preventDefault(); cv.setPointerCapture(e.pointerId); audio(); st.cur = [pt(e)]; pen(); ctx.beginPath(); ctx.moveTo(st.cur[0].x, st.cur[0].y); });
+  cv.addEventListener('pointermove', function (e) { if (!st.cur) return; var p = pt(e); st.cur.push(p); ctx.lineTo(p.x, p.y); ctx.stroke(); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+  function up(e) { if (!st.cur) return; var s = st.cur; st.cur = null; if (s.length === 1) { s.push({ x: s[0].x + 0.5, y: s[0].y + 0.5 }); } st.strokes.push(s); box.classList.add('filled'); redraw(); recognizeLater(); }
+  cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+  box.querySelector('.erase').addEventListener('click', function () { api.clear(); sfx.pop(); });
+  var api = { strokes: st.strokes, get letter() { return st.letter; }, get timer() { return st.timer; }, clear: function () { st.strokes.length = 0; st.letter = ''; guess.textContent = ''; box.classList.remove('filled'); redraw(); if (S.mode === 'sentence') renderSentenceLine(W.get()); } };
+  W.boxes.push(api);
+  requestAnimationFrame(size);
+  return box;
+}
+function buildTiles(area) {
+  var letters = W.target.split('');
+  var alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('').filter(function (c) { return letters.indexOf(c) < 0; });
+  var nDis = Math.min(3, Math.max(2, Math.round(letters.length / 3)));
+  var tiles = shuffle(letters.concat(shuffle(alphabet).slice(0, nDis))).map(function (ch, i) { return { id: i, ch: ch, slot: -1 }; });
+  var slots = letters.map(function () { return -1; });
+  var wrap = h('<div><div class="eyebrow" style="margin-bottom:8px">Tap or drag the letters into the boxes</div><div class="slots" id="slots"></div><div class="tray" id="tray"></div></div>');
+  area.appendChild(wrap);
+  var slotsEl = $('#slots', wrap), trayEl = $('#tray', wrap);
+  function render() {
+    slotsEl.innerHTML = ''; trayEl.innerHTML = '';
+    slots.forEach(function (tid, i) {
+      var s = h('<button class="slot' + (tid >= 0 ? ' filled' : '') + '" data-slot="' + i + '" aria-label="Box ' + (i + 1) + (tid >= 0 ? ', letter ' + tiles[tid].ch : ', empty') + '">' + (tid >= 0 ? tiles[tid].ch : '') + '</button>');
+      s.addEventListener('click', function () { if (slots[i] >= 0) { tiles[slots[i]].slot = -1; slots[i] = -1; sfx.pop(); render(); } });
+      slotsEl.appendChild(s);
+    });
+    tiles.filter(function (t) { return t.slot < 0; }).forEach(function (t) {
+      var el = h('<button class="tile" data-tile="' + t.id + '" aria-label="Letter ' + t.ch + '">' + t.ch + '</button>');
+      attachDrag(el, t); trayEl.appendChild(el);
+    });
+    renderSentenceLine(W.get());
+  }
+  function place(t, i) { if (i < 0) return; if (slots[i] >= 0) tiles[slots[i]].slot = -1; t.slot = i; slots[i] = t.id; sfx.pop(); render(); }
+  function firstEmpty() { return slots.indexOf(-1); }
+  function attachDrag(el, t) {
+    var start = null, ghost = null, moved = false;
+    el.addEventListener('pointerdown', function (e) { start = { x: e.clientX, y: e.clientY }; moved = false; el.setPointerCapture(e.pointerId); audio(); });
+    el.addEventListener('pointermove', function (e) {
+      if (!start) return;
+      if (!moved && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 8) { moved = true; ghost = el.cloneNode(true); ghost.classList.add('ghost'); document.body.appendChild(ghost); el.classList.add('dragging'); }
+      if (moved) { ghost.style.left = e.clientX + 'px'; ghost.style.top = e.clientY + 'px'; var over = slotUnder(e.clientX, e.clientY); $$('.slot', slotsEl).forEach(function (s) { s.classList.toggle('over', s === over); }); }
+    });
+    function end(e) {
+      if (!start) return; start = null;
+      if (moved) { var over = slotUnder(e.clientX, e.clientY); if (ghost) ghost.remove(); ghost = null; el.classList.remove('dragging'); $$('.slot', slotsEl).forEach(function (s) { s.classList.remove('over'); }); if (over) place(t, +over.dataset.slot); }
+      else { place(t, firstEmpty()); }
+    }
+    el.addEventListener('pointerup', end); el.addEventListener('pointercancel', function (e) { if (ghost) ghost.remove(); ghost = null; el.classList.remove('dragging'); start = null; });
+  }
+  function slotUnder(x, y) { var el = document.elementFromPoint(x, y); return el && el.closest ? el.closest('.slot') : null; }
+  render();
+  W.get = function () { return slots.map(function (tid) { return tid >= 0 ? tiles[tid].ch : ''; }).join(''); };
+  W.reset = function () { tiles.forEach(function (t) { t.slot = -1; }); slots = slots.map(function () { return -1; }); render(); };
+}
+
+/* ---------- checking ---------- */
+function lcsMarks(attempt, target) {
+  var a = attempt.toLowerCase(), b = target.toLowerCase(), m = a.length, n = b.length, i, j;
+  var dp = []; for (i = 0; i <= m; i++) { dp.push([]); for (j = 0; j <= n; j++) dp[i].push(0); }
+  for (i = m - 1; i >= 0; i--) for (j = n - 1; j >= 0; j--) dp[i][j] = a[i] === b[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  var marks = []; i = 0; j = 0;
+  while (i < m && j < n) { if (a[i] === b[j]) { marks.push({ ch: attempt[i], ok: true }); i++; j++; } else if (dp[i + 1][j] >= dp[i][j + 1]) { marks.push({ ch: attempt[i], ok: false }); i++; } else j++; }
+  while (i < m) marks.push({ ch: attempt[i++], ok: false });
+  return marks;
+}
+function check() {
+  if (!W || W.done) return;
+  if (W.pending && W.pending()) { setTimeout(check, 450); return; }
+  var ans = W.get(), fb = $('#fb');
+  if (!ans.length) { fb.innerHTML = '<span class="no">' + (currentInput() === 'type' ? 'Type the word first!' : 'Fill in the boxes first!') + '</span>'; return; }
+  if (currentInput() !== 'type' && ans.replace(/\?/g, '').length < W.target.length) { fb.innerHTML = '<span class="no">Fill in every box first!</span>'; return; }
+  if (ans.toLowerCase() === W.target) onCorrect(); else onWrong(ans);
+}
+function onCorrect() {
+  W.done = true;
+  var first = W.misses === 0 && !W.peeked;
+  var p = prog(W.word);
+  if (first) { p.ok++; p.streak++; S.stars++; store.stars++; } else { p.ok++; p.miss++; p.streak = 0; }
+  p.last = Date.now(); setProg(W.word, p); save();
+  S.results[S.idx] = first;
+  var fb = $('#fb');
+  fb.innerHTML = '<span class="ok">🎉 ' + esc(praise()) + (first ? ' ⭐' : ' 👍') + '</span><div class="reveal">' + esc(W.word) + '</div>';
+  $('.stars').textContent = '⭐ ' + S.stars;
+  $$('.pip')[S.idx].className = 'pip ' + (first ? 'ok' : 'no');
+  sfx.correct(); if (first) setTimeout(sfx.star, 500);
+  hawkReact('cheer'); setTimeout(function () { confetti(wandOrigin()); }, 150); mascotReact('happy');
+  hush(); say(pick(['Yes!', 'You got it!', 'Great job!']), 1);
+  if (S.mode === 'sentence') saySentence(W.word, false); else { spellOut(W.word); say(W.word, 0.85); }
+  var stage = $('.stage'); stage.classList.remove('pop'); void stage.offsetWidth; stage.classList.add('pop');
+  var chk = $('#check'); chk.textContent = 'Next ➔'; chk.className = 'btn big'; chk.hidden = false;
+  chk.onclick = nextWord;
+  W.auto = setTimeout(nextWord, 3800);
+}
+function onWrong(ans) {
+  W.misses++;
+  S.results[S.idx] = false; $$('.pip')[S.idx].className = 'pip now';
+  sfx.wrong(); mascotReact('sad'); hawkReact('oops');
+  var card = $('.stage'); card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+  var fb = $('#fb');
+  if (S.mode === 'sentence') {
+    // Word bank: never say the answer aloud — she should find it by reading. Re-read the sentence with "blank" instead.
+    var bh = '<span class="no">Not that one. Read the sentence again!</span>';
+    if (W.misses === 2) bh += '<div class="row center" style="margin-top:6px"><button class="btn sm sun" id="showme">👀 Show me</button></div>';
+    fb.innerHTML = bh;
+    var bsm = $('#showme'); if (bsm) bsm.addEventListener('click', function () { flashWord(); });
+    if (W.misses >= 3) $$('.chip').forEach(function (c) { if (c.dataset.w.toLowerCase() === W.target) c.classList.add('hint'); });
+    hush(); say(pick(['Not that one. Try again!', 'Hmm, not quite. Try again!']), 1); saySentence(W.word, true);
+    setTimeout(function () { if (W.reset) W.reset(); }, 900);
+    return;
+  }
+  var marks = lcsMarks(ans, W.target).map(function (m) { return '<span class="mark ' + (m.ok ? 'yes' : 'no') + '">' + esc(m.ch) + '</span>'; }).join('');
+  var html = '<span class="no">' + esc(pick(RETRY)) + '</span><div class="marks">' + marks + '</div><div class="note">' + (W.misses >= 3 ? 'Copy it: <span class="reveal">' + esc(W.word) + '</span>' : 'The word has ' + W.target.length + ' letters.') + '</div>';
+  if (W.misses === 2) html += '<div class="row center" style="margin-top:6px"><button class="btn sm sun" id="showme">👀 Show me</button></div>';
+  fb.innerHTML = html;
+  var sm = $('#showme'); if (sm) sm.addEventListener('click', function () { flashWord(); spellOut(W.word); });
+  hush(); say(pick(['Try again!', 'Almost! Try again.', 'Not yet. Listen: ']), 1); say(W.word, 0.75);
+  if (W.misses >= 3) { spellOut(W.word); }
+  setTimeout(function () { if (W.reset) W.reset(); }, 350);
+}
+function nextWord() {
+  clearTimeout(W.auto);
+  S.idx++;
+  if (S.idx >= S.round.length) return renderDone();
+  renderWord();
+}
+
+/* ===================== DONE ===================== */
+function renderDone() {
+  hush();
+  var missed = S.round.filter(function (w, i) { return S.results[i] === false; });
+  var firsts = S.results.filter(function (r) { return r === true; }).length;
+  var left = S.queue.length;
+  app.innerHTML = '<section class="card done">' + hawkSvg('bigmascot happy') + '<h2>' + (missed.length ? 'Great practice!' : 'Perfect round! 🏆') + '</h2>' +
+    '<p class="stat">⭐ ' + S.stars + ' stars earned · ' + firsts + ' of ' + S.round.length + ' right on the first try</p>' +
+    (missed.length ? '<div class="missed"><div class="eyebrow">Words to practice again</div><div class="wordgrid">' + missed.map(function (w) { return '<span class="wtag t">' + esc(w) + '</span>'; }).join('') + '</div></div>' : '') +
+    '<div class="stack" style="margin-top:14px">' +
+    (missed.length ? '<button class="btn big sun" id="again">🔁 Practice the ones I missed</button>' : '') +
+    (left ? '<button class="btn big" id="more">Keep going ➔ (' + left + ' more)</button>' : '') +
+    '<button class="btn big ' + (left || missed.length ? 'ghost' : '') + '" id="homeBtn">🏠 Home</button></div></section>';
+  confetti(); sfx.correct(); say(missed.length ? 'Great practice' + (kidName() ? ', ' + kidName() : '') + '!' : 'Perfect round! You are amazing!', 1);
+  var again = $('#again'); if (again) again.addEventListener('click', function () { var q = S.queue, t = S.title, m = S.mode; S = { title: t, mode: m, queue: q, round: missed, idx: 0, stars: 0, results: [] }; renderWord(); });
+  var more = $('#more'); if (more) more.addEventListener('click', function () { S.round = S.queue.slice(0, 10); S.queue = S.queue.slice(10); S.idx = 0; S.results = []; renderWord(); });
+  $('#homeBtn').addEventListener('click', renderHome);
+}
+
+/* ===================== SETTINGS (grown-ups) ===================== */
+function openSettings() {
+  var sheet = h('<div class="sheet" role="dialog" aria-modal="true" aria-label="Grown-up settings"><div class="panel">' +
+    '<h2>For grown-ups</h2><p class="note">Words come from the class\'s weekly spelling list. The newest week is always shown first; older weeks stay in the catalogue for review.</p>' +
+    '<div class="field"><label for="tName">Child\'s first name (saved on this device only)</label><input id="tName" type="text" maxlength="20" autocomplete="off" value="' + esc(kidName()) + '"></div>' +
+    '<div class="switch"><span>🔊 Read words aloud</span><button class="btn sm ghost" id="tVoice">' + (store.settings.voice ? 'On' : 'Off') + '</button></div>' +
+    '<div class="switch"><span>🎵 Sound effects</span><button class="btn sm ghost" id="tSfx">' + (store.settings.sfx ? 'On' : 'Off') + '</button></div>' +
+    '<div class="switch"><span>⭐ Reset all progress</span><button class="btn sm ghost" id="tReset">Reset</button></div>' +
+    '<h2 style="margin-top:16px">Add a week of words</h2><p class="note">Handy if a new list arrives before the app is updated. Saved on this device only.</p>' +
+    '<div class="field"><label for="wkDate">Week starting (Monday)</label><input id="wkDate" type="date"></div>' +
+    '<div class="field"><label for="wkTest">Test date</label><input id="wkTest" type="date"></div>' +
+    '<div class="field"><label for="wkWords">Words (one per line or separated by commas)</label><textarea id="wkWords" placeholder="catch, catcher, kitchen..."></textarea></div>' +
+    '<div class="row"><button class="btn" id="wkSave">Save week</button><button class="btn ghost" id="closeSheet">Close</button></div>' +
+    ((store.customWeeks || []).length ? '<h2 style="margin-top:16px">Weeks added here</h2>' + store.customWeeks.map(function (w) { return '<div class="switch"><span>Week of ' + fmt(w.id) + ' · ' + w.words.length + ' words</span><button class="btn sm ghost" data-del="' + w.id + '">Remove</button></div>'; }).join('') : '') +
+    '</div></div>');
+  document.body.appendChild(sheet);
+  sheet.addEventListener('click', function (e) { if (e.target === sheet) close(); });
+  function close() { sheet.remove(); renderHome(); }
+  $('#closeSheet', sheet).addEventListener('click', close);
+  $('#tName', sheet).addEventListener('input', function () { store.settings.name = this.value.trim(); store.settings.asked = true; save(); });
+  $('#tVoice', sheet).addEventListener('click', function () { store.settings.voice = !store.settings.voice; save(); this.textContent = store.settings.voice ? 'On' : 'Off'; });
+  $('#tSfx', sheet).addEventListener('click', function () { store.settings.sfx = !store.settings.sfx; save(); this.textContent = store.settings.sfx ? 'On' : 'Off'; });
+  $('#tReset', sheet).addEventListener('click', function () { if (this.dataset.armed) { store.words = {}; store.stars = 0; save(); toast('Progress reset'); close(); } else { this.dataset.armed = '1'; this.textContent = 'Really reset?'; this.classList.add('pink'); } });
+  $('#wkSave', sheet).addEventListener('click', function () {
+    var id = $('#wkDate', sheet).value, test = $('#wkTest', sheet).value, words = $('#wkWords', sheet).value.split(/[\n,;]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    if (!id) { toast('Pick the week start date'); return; } if (words.length < 2) { toast('Add at least two words'); return; }
+    store.customWeeks = (store.customWeeks || []).filter(function (w) { return w.id !== id; }); store.customWeeks.push({ id: id, test: test || '', words: words }); save(); toast('Week saved'); close();
+  });
+  $$('[data-del]', sheet).forEach(function (b) { b.addEventListener('click', function () { store.customWeeks = store.customWeeks.filter(function (w) { return w.id !== b.dataset.del; }); save(); close(); }); });
+}
+
+document.addEventListener('visibilitychange', function () { if (document.hidden) hush(); });
+window.addEventListener('resize', function () { if (W && W.boxes) { /* canvases resize themselves on next draw */ } });
+renderHome();
+})();
+</script>
+
+</body>
+</html>
